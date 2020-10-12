@@ -13,7 +13,10 @@ pipeline {
         stage('Login to Controller') {
             steps {
                 sh '''
+                set +x
+                echo "Running Login Script"
                 ./Scripts/login.sh $controllerUrl $username $password
+                set -x
                 '''
             }
         }
