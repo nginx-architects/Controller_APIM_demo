@@ -13,9 +13,11 @@ pipeline {
 
     stages {
         stage('Create environment based on params') {
-            sh'''
-            sed "s/controller_host/$controllerUrl/;s/controller_username/$username/;s/controller_password/$password/" ./PostmanCollections/Controller3.x_Env.postman_environment.json > temp_env.json
-            '''
+            steps {
+                sh'''
+                sed "s/controller_host/$controllerUrl/;s/controller_username/$username/;s/controller_password/$password/" ./PostmanCollections/Controller3.x_Env.postman_environment.json > temp_env.json
+                '''
+            }
         }
         stage('Create Artifacts within Controller') {
             steps {
