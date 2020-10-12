@@ -1,8 +1,4 @@
 def COLOR_MAP = ['SUCCESS': 'good', 'FAILURE': 'danger', 'UNSTABLE': 'danger', 'ABORTED': 'danger']
-
-def getBuildUser() {
-  return currentBuild.rawBuild.getCause(Cause.UserIdCause).getUserId()
-}
 pipeline {
     environment {
         BUILD_USER = ''
@@ -31,12 +27,10 @@ pipeline {
         }
         stage('Slack Message') {
             steps {
-                
-                sh 'BUILD_USER = getBuildUser()'
-                
+            
                 slackSend channel: '#apim-garage-day',
                 color: COLOR_MAP[currentBuild.currentResult],
-                message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER} by ${BUILD_USER}\n More info at: ${env.BUILD_URL}"
+                message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}"
             }
         }
     } 
