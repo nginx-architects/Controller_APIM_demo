@@ -8,9 +8,7 @@ pipeline {
             steps {
                 sh '''
                 echo 'Hello World'
-                node -v
-                npm -v
-                newman -v
+                ./login.sh
                 '''
             }
         }
