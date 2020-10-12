@@ -19,20 +19,18 @@ pipeline {
         stage('Create Artifacts within Controller') {
             steps {
                 sh '''
-                echo "Hello world"
-                // set +x
-                // ./Scripts/CreateArtifact.sh $controllerUrl $username $password
-                // set -x
+                set +x
+                ./Scripts/CreateArtifact.sh $controllerUrl $username $password
+                set -x
                 '''
             }
         }
-        stage('Slack Message') {
-            steps {
-            
-                slackSend channel: '#apim-garage-day',
+    } 
+    post {
+        always{
+            slackSend channel: '#apim-garage-day',
                 color: COLOR_MAP[currentBuild.currentResult],
                 message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}"
-            }
         }
-    } 
+    }
 }
