@@ -19,9 +19,10 @@ pipeline {
         stage('Create Artifacts within Controller') {
             steps {
                 sh '''
-                set +x
-                ./Scripts/CreateArtifact.sh $controllerUrl $username $password
-                set -x
+                echo "Hello world"
+                // set +x
+                // ./Scripts/CreateArtifact.sh $controllerUrl $username $password
+                // set -x
                 '''
             }
         }
