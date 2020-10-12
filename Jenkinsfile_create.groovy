@@ -15,17 +15,20 @@ pipeline {
         stage('Create environment based on params') {
             steps {
                 sh'''
+                set +x
                 sed "s/controller_host/$controllerUrl/;s/controller_username/$username/;s/controller_password/$password/" ./PostmanCollections/Controller3.x_Env.postman_environment.json > temp_env.json
+                set -x
                 '''
             }
         }
         stage('Create Artifacts within Controller') {
             steps {
-                sh '''
-                set +x
-                ./Scripts/CreateArtifact.sh $controllerUrl $username $password
-                set -x
-                '''
+                sh './Scripts/CreateArtifact.sh'
+            }
+        }
+        stage('Remove temporary environment file') {
+            steps {
+                sh 'rm ./temp_env.json'
             }
         }
     }

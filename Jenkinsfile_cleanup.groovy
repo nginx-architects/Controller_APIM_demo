@@ -12,13 +12,23 @@ pipeline {
     }
 
     stages {
-        stage('Clean up Controller') {
+        stage('Create environment based on params') {
             steps {
-                sh '''
+                sh'''
                 set +x
-                ./Scripts/CleanupArtifact.sh $controllerUrl $username $password
+                sed "s/controller_host/$controllerUrl/;s/controller_username/$username/;s/controller_password/$password/" ./PostmanCollections/Controller3.x_Env.postman_environment.json > temp_env.json
                 set -x
                 '''
+            }
+        }
+        stage('Clean up Controller') {
+            steps {
+                sh './Scripts/CleanupArtifact.sh'
+            }
+        }
+        stage('Remove temporary environment file') {
+            steps {
+                sh 'rm ./temp_env.json'
             }
         }
     }
