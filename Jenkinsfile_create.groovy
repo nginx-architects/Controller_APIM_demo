@@ -4,7 +4,7 @@ pipeline {
     parameters {
         string(defaultValue: "10.1.1.6", description: 'Controller (UDF URL / IP Address)', name: 'controllerUrl')
         string(defaultValue: "admin@test.com", description: 'Controller Username', name: 'username')
-        password(defaultValue: "Admin123", description: 'Controller Password', name: 'password')
+        password(description: 'Controller Password', name: 'password')
     }
 
     tools {
@@ -12,6 +12,11 @@ pipeline {
     }
 
     stages {
+        stage('Create environment based on params') {
+            sh'''
+            sed "s/controller_host/$controllerUrl/;s/controller_username/$username/;s/controller_password/$password/" ./PostmanCollections/Controller3.x_Env.postman_environment.json > temp_env.json
+            '''
+        }
         stage('Create Artifacts within Controller') {
             steps {
                 sh '''

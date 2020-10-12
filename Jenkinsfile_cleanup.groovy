@@ -4,7 +4,7 @@ pipeline {
     parameters {
         string(defaultValue: "10.1.1.6", description: 'Controller (UDF URL / IP Address)', name: 'controllerUrl')
         string(defaultValue: "admin@test.com", description: 'Controller Username', name: 'username')
-        password(defaultValue: "Admin123", description: 'Controller Password', name: 'password')
+        password(description: 'Controller Password', name: 'password')
     }
 
     tools {
