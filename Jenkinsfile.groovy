@@ -8,7 +8,7 @@ pipeline {
             steps {
                 sh '''
                 echo 'Hello World'
-                ./login.sh
+                ./Scripts/login.sh
                 '''
             }
         }
