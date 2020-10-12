@@ -10,11 +10,11 @@ pipeline {
     tools {nodejs "node"}
 
     stages {
-        stage('Login to Controller') {
+        stage('Create Artifacts within Controller') {
             steps {
                 sh '''
                 set +x
-                ./Scripts/login.sh $controllerUrl $username $password
+                ./Scripts/CreateArtifact.sh $controllerUrl $username $password
                 set -x
                 '''
             }
