@@ -1884,8 +1884,7 @@
 							"        postman.setNextRequest(null);",
 							"        pm.expect.fail(\"F1 V1 component creation failed.\");",
 							"    }",
-							"});",
-							"pm.environment.unset(\"ERGAST01\");"
+							"});"
 						],
 						"type": "text/javascript"
 					}
