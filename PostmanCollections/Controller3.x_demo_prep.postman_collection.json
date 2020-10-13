@@ -1863,9 +1863,7 @@
 					"script": {
 						"id": "d87fdafe-723c-4fae-9f2e-ce0ab8c12528",
 						"exec": [
-							"console.log(\"NOTICE: Creating F1 V1 Component\");",
-							"pm.environment.set(\"ERGAST01\",\"10.1.1.7\");",
-							""
+							"console.log(\"NOTICE: Creating F1 V1 Component\");"
 						],
 						"type": "text/javascript"
 					}
