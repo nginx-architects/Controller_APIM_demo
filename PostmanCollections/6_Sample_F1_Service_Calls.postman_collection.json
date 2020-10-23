@@ -1,0 +1,54 @@
+{
+	"info": {
+		"_postman_id": "13c7b0d9-ea01-46e6-8ffd-6b501c066b0e",
+		"name": "6_Sample_F1_Service_Calls",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get list of Drivers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://sports.example.com/api/f1/drivers",
+					"protocol": "https",
+					"host": [
+						"sports",
+						"example",
+						"com"
+					],
+					"path": [
+						"api",
+						"f1",
+						"drivers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get list of Seasons",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://sports.example.com/api/f1/seasons",
+					"protocol": "https",
+					"host": [
+						"sports",
+						"example",
+						"com"
+					],
+					"path": [
+						"api",
+						"f1",
+						"seasons"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

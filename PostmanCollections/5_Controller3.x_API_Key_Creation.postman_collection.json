@@ -1,0 +1,206 @@
+{
+	"info": {
+		"_postman_id": "6a1db860-9dc9-469f-b941-cd6108c47326",
+		"name": "5_Controller3.x_API_Key_Creation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "69d906a5-9ded-44e1-a0c7-508c02541b69",
+						"exec": [
+							"pm.test(\"Login status\", function(){",
+							"    var status = pm.response.code;",
+							"    if(status == 204){",
+							"        console.log(\"Login was successful. Moving to next step.\");",
+							"        postman.setNextRequest(\"check_IdentityProvider\");",
+							"        return true;",
+							"    }",
+							"    else {",
+							"        console.error(\"Login was not successful. Exiting!!!\");",
+							"        postman.setNextRequest(null);",
+							"        pm.expect.fail(\"Login was not successful. Exiting!!!\");",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"credentials\": {\n        \"type\": \"BASIC\",\n        \"username\": \"{{USERNAME}}\",\n        \"password\": \"{{PASSWORD}}\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{CTRL_HOST}}/api/v1/platform/login",
+					"protocol": "https",
+					"host": [
+						"{{CTRL_HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"platform",
+						"login"
+					]
+				},
+				"description": "login to Controller"
+			},
+			"response": []
+		},
+		{
+			"name": "check_IdentityProvider",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "d50f7937-5783-4df0-b473-f95a4bbce59e",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "f96c4419-18aa-44a2-ab4a-fdd028b48e38",
+						"exec": [
+							"pm.test(\"Check if identity-provider got created\", function(){",
+							"    var status = pm.response.code;",
+							"    if(status == 200 || status == 201 || status == 202){",
+							"        console.log(\"Identity provider created successfully.\");",
+							"        postman.setNextRequest(\"Add_tokens\");",
+							"        return true;",
+							"    }",
+							"    else{",
+							"        postman.setNextRequest(null);",
+							"        pm.expect.fail(\"Identity provider creation failed.\");",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"metadata\": {\n        \"name\": \"test-clients\",\n        \"displayName\": \"Test Client API keys\",\n        \"description\": \"20x secrets imported\",\n        \"tags\": []\n    },\n    \"desiredState\": {\n        \"environmentRefs\": [\n            {\n                \"ref\": \"/services/environments/dev-f1\"\n            }\n        ],\n        \"identityProvider\": {\n            \"type\": \"API_KEY\"\n        }\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{CTRL_HOST}}/api/v1/security/identity-providers/test-clients",
+					"protocol": "https",
+					"host": [
+						"{{CTRL_HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"security",
+						"identity-providers",
+						"test-clients"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add_tokens",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1d0c56d3-17dc-4474-bc33-e7a648a4657d",
+						"exec": [
+							"pm.test(\"Check if tokens were added\", function(){",
+							"    var status = pm.response.code;",
+							"    if(status == 200 || status == 202){",
+							"        console.log(\"Tokens created successfully.\");",
+							"        postman.setNextRequest(null);",
+							"        return true;",
+							"    }",
+							"    else{",
+							"        postman.setNextRequest(null);",
+							"        pm.expect.fail(\"Token addition failed.\");",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"items\": [\n    {\"metadata\":{\"name\":\"6823d441\"},\"desiredState\":{\"credential\":{\"apiKey\":\"59f431d7-c7b9-4041-80ca-f71189b4acf9\",\"type\":\"API_KEY\"}}},\n    {\"metadata\":{\"name\":\"16164e67\"},\"desiredState\":{\"credential\":{\"apiKey\":\"f958ce3a-7934-4b76-80f9-38bd3a14e722\",\"type\":\"API_KEY\"}}},\n    {\"metadata\":{\"name\":\"b61698d3\"},\"desiredState\":{\"credential\":{\"apiKey\":\"3989ab06-e768-42af-939c-9c3ad9c572c3\",\"type\":\"API_KEY\"}}},\n    {\"metadata\":{\"name\":\"2c7520aa\"},\"desiredState\":{\"credential\":{\"apiKey\":\"14be2492-f51f-46ba-b6f8-b1653f6d5ac7\",\"type\":\"API_KEY\"}}},\n    {\"metadata\":{\"name\":\"6f75ec5d\"},\"desiredState\":{\"credential\":{\"apiKey\":\"2dc6fdf0-3f10-4afb-8af9-a82d19fb80af\",\"type\":\"API_KEY\"}}},\n    {\"metadata\":{\"name\":\"fad22b2d\"},\"desiredState\":{\"credential\":{\"apiKey\":\"a9f90a80-f6c9-4dc9-994f-c08839e0b42d\",\"type\":\"API_KEY\"}}},\n    {\"metadata\":{\"name\":\"11221486\"},\"desiredState\":{\"credential\":{\"apiKey\":\"20c30ea8-72db-4374-adee-e55fe0387610\",\"type\":\"API_KEY\"}}},\n    {\"metadata\":{\"name\":\"e3b43614\"},\"desiredState\":{\"credential\":{\"apiKey\":\"a0cb1fd9-d666-4f55-823f-770d0a9cf813\",\"type\":\"API_KEY\"}}},\n    {\"metadata\":{\"name\":\"f38a42a7\"},\"desiredState\":{\"credential\":{\"apiKey\":\"cb945118-7cf0-4310-b000-c355a2978704\",\"type\":\"API_KEY\"}}},\n    {\"metadata\":{\"name\":\"50ac6d1f\"},\"desiredState\":{\"credential\":{\"apiKey\":\"cfc3526c-a2cc-4037-ab40-42abc3d28794\",\"type\":\"API_KEY\"}}},\n    {\"metadata\":{\"name\":\"bdeb9be3\"},\"desiredState\":{\"credential\":{\"apiKey\":\"5426d659-a6c3-492f-b311-3999452e785a\",\"type\":\"API_KEY\"}}},\n    {\"metadata\":{\"name\":\"c824327b\"},\"desiredState\":{\"credential\":{\"apiKey\":\"73e16ad2-bfd3-444c-bd03-6077e1c9db97\",\"type\":\"API_KEY\"}}},\n    {\"metadata\":{\"name\":\"2d573d93\"},\"desiredState\":{\"credential\":{\"apiKey\":\"a1a5429f-3238-490c-aa4f-2dad8f35290f\",\"type\":\"API_KEY\"}}},\n    {\"metadata\":{\"name\":\"d77a43ba\"},\"desiredState\":{\"credential\":{\"apiKey\":\"2c37d727-c287-4f58-9511-92ad58c22366\",\"type\":\"API_KEY\"}}},\n    {\"metadata\":{\"name\":\"eb18a782\"},\"desiredState\":{\"credential\":{\"apiKey\":\"fa02b488-3afa-44b9-8b20-8c848eaf272a\",\"type\":\"API_KEY\"}}},\n    {\"metadata\":{\"name\":\"d4046c6c\"},\"desiredState\":{\"credential\":{\"apiKey\":\"5a42e855-14ae-4ad0-bec7-4f3135370d34\",\"type\":\"API_KEY\"}}},\n    {\"metadata\":{\"name\":\"b4df55e9\"},\"desiredState\":{\"credential\":{\"apiKey\":\"827be51c-ba54-4bd8-8bb0-06d9ab43374b\",\"type\":\"API_KEY\"}}},\n    {\"metadata\":{\"name\":\"57a82675\"},\"desiredState\":{\"credential\":{\"apiKey\":\"4528fc2d-9a71-4b8c-abd5-51a3542ab5cb\",\"type\":\"API_KEY\"}}},\n    {\"metadata\":{\"name\":\"d540e600\"},\"desiredState\":{\"credential\":{\"apiKey\":\"48de70ce-289e-4624-a7b8-efdf2a9df563\",\"type\":\"API_KEY\"}}},\n    {\"metadata\":{\"name\":\"a1863c06\"},\"desiredState\":{\"credential\":{\"apiKey\":\"c03d8cf9-0a5b-464c-b978-ea99ab145f12\",\"type\":\"API_KEY\"}}}\n  ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{CTRL_HOST}}/api/v1/security/identity-providers/test-clients/clients",
+					"protocol": "https",
+					"host": [
+						"{{CTRL_HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"security",
+						"identity-providers",
+						"test-clients",
+						"clients"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "3e553faf-5242-4945-a958-c76e158fc3cd",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "88ee3844-81d6-4f64-8932-00e86850b623",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
