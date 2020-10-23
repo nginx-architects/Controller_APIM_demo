@@ -8,7 +8,7 @@
 - Select `Sports Results` and then click on `View Docs` button.
   ![DevPortal View Docs](Media/DevPortal/01_Devportal_viewDocs.png)
 
-- Select `F1 Results API` and then click on `Get Started` button.
+- Select `F1 Results API` and then click on `Get Started` button. <br>
   ![DevPortal F1 Get Started](Media/DevPortal/02_Devportal_F1_GetStarted.png)
 
 - Demonstrate/browse the published content and review the API definitions and details.
