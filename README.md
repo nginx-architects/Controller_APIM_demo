@@ -16,9 +16,26 @@
 - Within Jumphost we would be using "Google Chrome", "Postman" and "Visual Studio Code". Shortcuts for each of this apps can be found on the desktop.
  
 ## UDF Demo Environment Architecture:
-![UDF Component Diagram](Media/Controller3.x_APIM_UDF_Components.jpeg)
+- Diagram
+  ![UDF Component Diagram](Docs/Media/00_Controller3.x_APIM_UDF_Components.jpeg)
 
-## UDF Environment components in depth:
 - Watch the below video which explains the components in detail
   
-  [![Watch the video](https://img.youtube.com/vi/DXIa6LmKFDE/hqdefault.jpg)](https://youtu.be/DXIa6LmKFDE)
+  [![Watch the video](https://img.youtube.com/vi/DXIa6LmKFDE/maxresdefault.jpg)](https://youtu.be/DXIa6LmKFDE)
+
+
+## Demo Environment Related Credentials:
+- Jumphost RDP 
+  - Username: `Administrator`
+  - Password: `SJ5rD7bFA`
+- Controller (https://nginxcontrollerdemo.com)
+  - Admin username: `admin@nginxcontrollerdemo.com`
+  - Admin password: `Admin123!@#`
+- Jenkins (http://10.1.1.10:808/)
+  - username: `admin`
+  - password: `Admin123!@#`
+  
+## Demo Docs:
+
+Navigate to each link below for particular Demo document
+- [APIM Automation/Publish Demo](Docs/AutomationDemo.md)
