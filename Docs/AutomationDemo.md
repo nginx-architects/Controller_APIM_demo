@@ -1,12 +1,12 @@
 ## APIM Automation/Publish Demo
-- Login to Controller using Admin credentials. (For credentials, refer [README.md](../README.md) file)
+- Login to Controller using Admin credentials. (For credentials, refer [README.md](../README.md#demo-environment-related-credentials) file)
 
 - Navigate to `Services` view within Controller by clicking on the top right NGINX button.
 ![services view](./Media/01_Controller_Services_view.png)
 
 - Make sure none of the components have been created.
 
-- Now in another tab, within Google Chrome, login to Jenkins using Admin credentials. (For credentials, refer [README.md](../README.md) file)
+- Now in another tab, within Google Chrome, login to Jenkins using Admin credentials. (For credentials, refer [README.md](../README.md#demo-environment-related-credentials) file)
 
 - Within Jenkins you should be able to see two pipeline jobs as below.
   ![Jenkins Dashboard](./Media/02_Jenkins_Dashboard.png)
