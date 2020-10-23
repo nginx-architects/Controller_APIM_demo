@@ -17,3 +17,8 @@
  
 ## UDF Demo Environment Architecture:
 ![UDF Component Diagram](Media/Controller3.x_APIM_UDF_Components.jpeg)
+
+## UDF Environment components in depth:
+- Watch the below video which explains the components in detail
+  
+  [![Watch the video](https://img.youtube.com/vi/DXIa6LmKFDE/hqdefault.jpg)](https://youtu.be/DXIa6LmKFDE)
