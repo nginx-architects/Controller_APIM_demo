@@ -1,4 +1,8 @@
 ## APIM Automation/Publish Demo
+- On the Jumphost, open up `Google Chrome`.
+
+- Select the bookmark toolbar link: (`Controller|Login`) https://nginxcontrollerdemo.com 
+
 - Login to Controller using Admin credentials. (For credentials, refer [README.md](../README.md#demo-environment-related-credentials) file)
 
 - Navigate to `Services` view within Controller by clicking on the top right NGINX button.
@@ -6,7 +10,9 @@
 
 - Make sure none of the components have been created.
 
-- Now in another tab, within Google Chrome, login to Jenkins using Admin credentials. (For credentials, refer [README.md](../README.md#demo-environment-related-credentials) file)
+- Now in another tab, within Google Chrome, Select the bookmark toolbar link: (`Jenkins|Login`) http://10.1.1.10:8080/
+  
+- Login to Jenkins using Admin credentials. (For credentials, refer [README.md](../README.md#demo-environment-related-credentials) file)
 
 - Within Jenkins you should be able to see two pipeline jobs as below.
   ![Jenkins Dashboard](./Media/02_Jenkins_Dashboard.png)
