@@ -39,3 +39,7 @@
 
 Navigate to each link below for particular Demo document
 - [APIM Automation/Publish Demo](Docs/AutomationDemo.md)
+- [APIM Developer Portal Demo](Docs/DevPortalDemo.md)
+- [APIM User/Group - Gateway Isolation](Docs/UserGroupIsolation.md)
+- [APIM Security Demo / API Key / Rate Limiting](Docs/SecurityDemo.md)
+- [APIM Blue/Green Demo](Docs/BlueGreenDemo.md)
