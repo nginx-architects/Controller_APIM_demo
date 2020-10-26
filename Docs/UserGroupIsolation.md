@@ -73,7 +73,7 @@
 - Select `APIs`.<br> 
   ![Apis](Media/UserGroup/18_UserGroup_api.png)
 
-- **Note:** You can only view API definition, published APIs and components for `dev-f1-results` based on your role access.
+- **NOTE:** You can only view API definition, published APIs and components for `dev-f1-results` based on your role access.
 
 - Logout of NGINX Controller as `dev` user.<br>
 ![Dev logout](Media/UserGroup/19_UserGroup_Dev_logout.png)
