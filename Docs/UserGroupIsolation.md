@@ -49,9 +49,9 @@
 ![Create New App](Media/UserGroup/12_UserGroup_apps_create.png)
 
 - Open `Postman` app from the desktop and then run `4_NGINX Controller Dev API` collection.
-  - Click on `Run` by selecting the collection. 
+  - Click on `Run` by selecting the collection.<br> 
   ![Postman Run Collection1](Media/UserGroup/13_UserGroup_postman1.png)
-  - Select the `Environment` as `Controller3.x Env` and then click on the `Run` button as shown in below screenshot.
+  - Select the `Environment` as `Controller3.x Env` and then click on the `Run` button as shown in below screenshot.<br>
     ![Postman Run Collection2](Media/UserGroup/14_UserGroup_postman2.png)
 
 - Log out of NGINX Controller as `admin`<br>

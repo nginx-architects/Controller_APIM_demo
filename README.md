@@ -16,10 +16,11 @@
 - Within Jumphost we would be using "Google Chrome", "Postman" and "Visual Studio Code". Shortcuts for each of this apps can be found on the desktop.
  
 ## UDF Demo Environment Architecture:
-- Diagram
+- *Diagram:*
+  
   ![UDF Component Diagram](Docs/Media/00_Controller3.x_APIM_UDF_Components.jpeg)
 
-- Watch the below video which explains the components in detail
+- *Component Overview Video:*
   
   [![Watch the video](https://img.youtube.com/vi/DXIa6LmKFDE/maxresdefault.jpg)](https://youtu.be/DXIa6LmKFDE)
 
