@@ -71,9 +71,9 @@
 - **NOTE:** You can only view the components that are defined in your role and environment. Also, the placement for the gateway is limited to `apigateway3`.
 
 - Select `APIs`.<br> 
-  ![Apis](Media/UserGroup/18_UserGroup_api.png)
+  ![Apis](Media/03_Controller_Services_API.png)
 
 - **NOTE:** You can only view API definition, published APIs and components for `dev-f1-results` based on your role access.
 
 - Logout of NGINX Controller as `dev` user.<br>
-![Dev logout](Media/UserGroup/19_UserGroup_Dev_logout.png)
+![Dev logout](Media/UserGroup/18_UserGroup_Dev_logout.png)
