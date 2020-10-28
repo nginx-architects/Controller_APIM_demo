@@ -32,7 +32,7 @@
 - Controller (https://nginxcontrollerdemo.com)
   - Admin username: `admin@nginxcontrollerdemo.com`
   - Admin password: `Admin123!@#`
-- Jenkins (http://10.1.1.10:808/)
+- Jenkins (http://10.1.1.10:8080/)
   - username: `admin`
   - password: `Admin123!@#`
   
