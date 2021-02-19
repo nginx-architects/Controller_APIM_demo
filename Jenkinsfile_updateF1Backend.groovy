@@ -9,6 +9,7 @@ pipeline {
         string(defaultValue: "10.1.1.4", description: 'Controller (UDF URL / IP Address)', name: 'controllerUrl')
         string(defaultValue: "admin@nginxcontrollerdemo.com", description: 'Controller Username', name: 'username')
         password(defaultValue: "", description: 'Controller Password', name: 'password')
+        string(defaultValue: "#nginx_demo_slack_integ", description: 'Notification channel name. (For notifying a user instead of channel, use @Member_ID)', name: 'slack_channel')
     }
 
     tools {
@@ -28,7 +29,7 @@ pipeline {
     } 
     post {
         always{
-            slackSend channel: '#apim-garage-day',
+            slackSend channel: "${slack_channel}",
                 color: COLOR_MAP[currentBuild.currentResult],
                 message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}"
         }

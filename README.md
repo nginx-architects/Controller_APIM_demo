@@ -3,7 +3,7 @@
 ## Getting started with Demo in UDF 
 
 - Log into UDF
-- Navigate to `Blueprints` tab on left bar. Search for `NGINX Controller APIM Demos`([Link](https://udf.f5.com/d/58a21db7-b545-4c1c-96fd-81f82133ea44#documentation)) within the search bar.
+- Navigate to `Blueprints` tab on left bar. Search for `NGINX Controller APIM Demos`([Link](https://udf.f5.com/b/cd255d5d-b1b6-4757-8b31-4ce1038a35ea#documentation)) within the search bar.
 - Once found click on `Deploy`. This step will add the blueprint within your deployments.
 - Navigate to `Deployments` tab on left bar. This will show all your deployments in the right pane. Select `NGINX Controller APIM Demos` and click on `START`.
 - Once your deployment has started, click on `Details`. This opens up your `NGINX Controller APIM Demos` deployment page.
