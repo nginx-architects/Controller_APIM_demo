@@ -14,7 +14,7 @@
   
 - Login to Jenkins using Admin credentials. (For credentials, refer [README.md](../README.md#demo-environment-related-credentials) file)
 
-- Within Jenkins you should be able to see two pipeline jobs as below.<br>
+- Within Jenkins you should be able to see three pipeline jobs as below.<br>
   ![Jenkins Dashboard](./Media/Automation/01_Jenkins_Dashboard.png)
 
 - Open the `CreateArtifact_Pipeline_Controller3.x` job, by clicking on it. 
@@ -41,3 +41,6 @@
 
 - If we navigate back to Controller we can see all the components have been created and are ready to be used.<br>
   ![Controller Services Populated](Media/Automation/08_Controller_Services_populated.png)
+
+- To deploy a newer version of F1 API (Version 2 API Spec) run `UpdateF1Spec` job within jenkins in a similar fashion as you ran the `CreateArtifact_Pipeline_Controller3.x` job.<br>
+  ![Jenkins UpdateF1Spec](Media/Automation/09_Jenkins_F1V2_job.png)
