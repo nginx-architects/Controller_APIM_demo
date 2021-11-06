@@ -1724,7 +1724,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"metadata\": {\n    \"name\": \"f1-v2-prod\",\n    \"tags\": []\n  },\n  \"desiredState\": {\n    \"apiDefinitionVersionRef\": {\n      \"ref\": \"/services/api-definitions/f1-results/versions/v2\"\n    },\n    \"gatewayRefs\": [\n      {\n        \"ref\": \"/services/environments/oneconnect/gateways/apigw\"\n      }\n    ],\n    \"devportalRefs\": [\n      {\n        \"ref\": \"/services/environments/oneconnect/devportals/devportal\"\n      }\n    ]\n  }\n}",
+					"raw": "{\n  \"metadata\": {\n    \"name\": \"f1-v2-prod\",\n    \"tags\": []\n  },\n  \"desiredState\": {\n    \"apiDefinitionVersionRef\": {\n      \"ref\": \"/services/api-definitions/f1-results/versions/v2\"\n    },\n    \"gatewayRefs\": [\n      {\n        \"ref\": \"/services/environments/oneconnect/gateways/apigw\"\n      }\n    ]\n  }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
