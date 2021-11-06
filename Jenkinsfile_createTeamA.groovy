@@ -21,7 +21,7 @@ pipeline {
             steps {
                 sh '''
                 set +x
-                ./Scripts/UpdateF1BackendToV2.sh $controllerUrl $username $password
+                ./Scripts/CreateArtifactTeamA.sh $controllerUrl $username $password
                 set -x
                 '''
             }

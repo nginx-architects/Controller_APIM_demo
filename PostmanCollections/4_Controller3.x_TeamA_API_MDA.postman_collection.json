@@ -1,0 +1,511 @@
+{
+	"info": {
+		"_postman_id": "d44c874c-0b6b-47c5-908b-d08be8df3e19",
+		"name": "4_Controller3.x_TeamA_API_MDA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login Admin TeamA",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Login status\", function(){",
+							"    var status = pm.response.code;",
+							"    if(status == 204){",
+							"        console.log(\"Login was successful.\");",
+							"        return true;",
+							"    }",
+							"    else {",
+							"        console.error(\"Login was not successful. Exiting!!!\");",
+							"        pm.expect.fail(\"Login was not successful. Exiting!!!\");",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"credentials\": {\n        \"type\": \"BASIC\",\n        \"username\": \"teama_admin@example.com\",\n        \"password\": \"{{PASSWORD}}\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{CTRL_HOST}}/api/v1/platform/login",
+					"protocol": "https",
+					"host": [
+						"{{CTRL_HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"platform",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create_TeamA_Gateway",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"console.log(\"NOTICE: Creating Team A gateway\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Check if Gateway got created\", function(){",
+							"    if(pm.response.to.have.status(202)){",
+							"        console.log(\"Gateway created successfully.\"); ",
+							"        return true;",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"metadata\": {\n        \"name\": \"teama-gateway\",\n        \"displayName\": \"Team A API Gateway\"\n    },\n    \"desiredState\": {\n        \"errorSetRef\": {\n            \"ref\": \"/services/errorsets/default-json\"\n        },\n        \"ingress\": {\n            \"uris\": {\n                \"http://teama.example.com\": {}\n            },\n            \"placement\": {\n                \"instanceRefs\": [\n                    {\n                        \"ref\": \"/infrastructure/locations/unspecified/instances/20\"\n                    }\n                ]\n            }\n        }\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{CTRL_HOST}}/api/v1/services/environments/team_a/gateways",
+					"protocol": "https",
+					"host": [
+						"{{CTRL_HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"services",
+						"environments",
+						"team_a",
+						"gateways"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create_teamA_httpbin_App",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"console.log(\"NOTICE: Creating TeamA Httpbin App\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Check if TeamA Httpbin App got created\", function(){",
+							"    if(pm.response.to.have.status(201)){",
+							"        console.log(\"TeamA Httpbin App created successfully.\");",
+							"        return true;",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"metadata\": {\n    \"name\": \"teama-httpbin\",\n    \"displayName\": \"HTTPBin App\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{CTRL_HOST}}/api/v1/services/environments/team_a/apps",
+					"protocol": "https",
+					"host": [
+						"{{CTRL_HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"services",
+						"environments",
+						"team_a",
+						"apps"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create_httpbin_API_definition",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"console.log(\"NOTICE: Creating HTTPBin API definition\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Check if HTTPBin API Definition got created\", function(){",
+							"    var status = pm.response.code;",
+							"    if(status == 200|| status == 201){",
+							"        console.log(\"HTTPBin API definition created successfully.\");",
+							"        // postman.setNextRequest(\"Publish_F1_V1_API\");",
+							"        return true;",
+							"    }",
+							"    else{",
+							"        postman.setNextRequest(null);",
+							"        pm.expect.fail(\"HTTPBin API definition creation failed.\");",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/yaml"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "openapi: 3.0.3\ninfo:\n  title: Team A httpbin API\n  description: 'A simple HTTP Request & Response Service.'\n  license:\n    name: ISC\n    url: https://spdx.org/licenses/ISC.html    \n  version: 1.0.0\npaths:\n  \"/anything\":\n    delete:\n      responses:\n        '200':\n          description: Anything passed in request\n      summary: Returns anything passed in request data.\n      tags:\n      - Anything\n    get:\n      responses:\n        '200':\n          description: Anything passed in request\n      summary: Returns anything passed in request data.\n      tags:\n      - Anything\n    patch:\n      responses:\n        '200':\n          description: Anything passed in request\n      summary: Returns anything passed in request data.\n      tags:\n      - Anything\n    post:\n      responses:\n        '200':\n          description: Anything passed in request\n      summary: Returns anything passed in request data.\n      tags:\n      - Anything\n    put:\n      responses:\n        '200':\n          description: Anything passed in request\n      summary: Returns anything passed in request data.\n      tags:\n      - Anything\n    trace:\n      responses:\n        '200':\n          description: Anything passed in request\n      summary: Returns anything passed in request data.\n      tags:\n      - Anything\n  \"/anything/{anything}\":\n    delete:\n      parameters:\n      - in: path\n        name: anything\n        required: true\n        schema:\n          type: string\n      responses:\n        '200':\n          description: Anything passed in request\n      summary: Returns anything passed in request data.\n      tags:\n      - Anything\n    get:\n      parameters:\n      - in: path\n        name: anything\n        required: true\n        schema:\n          type: string\n      responses:\n        '200':\n          description: Anything passed in request\n      summary: Returns anything passed in request data.\n      tags:\n      - Anything\n    patch:\n      parameters:\n      - in: path\n        name: anything\n        required: true\n        schema:\n          type: string\n      responses:\n        '200':\n          description: Anything passed in request\n      summary: Returns anything passed in request data.\n      tags:\n      - Anything\n    post:\n      parameters:\n      - in: path\n        name: anything\n        required: true\n        schema:\n          type: string\n      responses:\n        '200':\n          description: Anything passed in request\n      summary: Returns anything passed in request data.\n      tags:\n      - Anything\n    put:\n      parameters:\n      - in: path\n        name: anything\n        required: true\n        schema:\n          type: string\n      responses:\n        '200':\n          description: Anything passed in request\n      summary: Returns anything passed in request data.\n      tags:\n      - Anything\n    trace:\n      parameters:\n      - in: path\n        name: anything\n        required: true\n        schema:\n          type: string\n      responses:\n        '200':\n          description: Anything passed in request\n      summary: Returns anything passed in request data.\n      tags:\n      - Anything\n  \"/base64/{value}\":\n    get:\n      parameters:\n      - in: path\n        name: value\n        required: true\n        schema:\n          default: SFRUUEJJTiBpcyBhd2Vzb21l\n          type: string\n      responses:\n        '200':\n          description: Decoded base64 content.\n      summary: Decodes base64url-encoded string.\n      tags:\n      - Dynamic data\n  \"/bearer\":\n    get:\n      parameters:\n      - in: header\n        name: Authorization\n        schema:\n          type: string\n      responses:\n        '200':\n          description: Sucessful authentication.\n        '401':\n          description: Unsuccessful authentication.\n      summary: Prompts the user for authorization using bearer authentication.\n      tags:\n      - Auth\n  \"/encoding/utf8\":\n    get:\n      responses:\n        '200':\n          description: Encoded UTF-8 content.\n      summary: Returns a UTF-8 encoded body.\n      tags:\n      - Response formats\n  \"/get\":\n    get:\n      responses:\n        '200':\n          description: The request's query parameters.\n      summary: The request's query parameters.\n      tags:\n      - HTTP Methods\n  \"/headers\":\n    get:\n      responses:\n        '200':\n          description: The request's headers.\n      summary: Return the incoming request's HTTP headers.\n      tags:\n      - Request inspection\n  \"/html\":\n    get:\n      responses:\n        '200':\n          description: An HTML page.\n      summary: Returns a simple HTML document.\n      tags:\n      - Response formats\n  \"/image\":\n    get:\n      responses:\n        '200':\n          description: An image.\n      summary: Returns a simple image of the type suggest by the Accept header.\n      tags:\n      - Images\n  \"/ip\":\n    get:\n      responses:\n        '200':\n          description: The Requester's IP Address.\n      summary: Returns the requester's IP Address.\n      tags:\n      - Request inspection\n  \"/json\":\n    get:\n      responses:\n        '200':\n          description: An JSON document.\n      summary: Returns a simple JSON document.\n      tags:\n      - Response formats\n  \"/post\":\n    post:\n      responses:\n        '200':\n          description: The request's POST parameters.\n      summary: The request's POST parameters.\n      tags:\n      - HTTP Methods\n  \"/put\":\n    put:\n      responses:\n        '200':\n          description: The request's PUT parameters.\n      summary: The request's PUT parameters.\n      tags:\n      - HTTP Methods\n  \"/response-headers\":\n    get:\n      parameters:\n      - allowEmptyValue: true\n        explode: true\n        in: query\n        name: freeform\n        schema:\n          additionalProperties:\n            type: string\n          type: object\n        style: form\n      responses:\n        '200':\n          description: Response headers\n      summary: Returns a set of response headers from the query string.\n      tags:\n      - Response inspection\n    post:\n      parameters:\n      - allowEmptyValue: true\n        explode: true\n        in: query\n        name: freeform\n        schema:\n          additionalProperties:\n            type: string\n          type: object\n        style: form\n      responses:\n        '200':\n          description: Response headers\n      summary: Returns a set of response headers from the query string.\n      tags:\n      - Response inspection\n  \"/status/{codes}\":\n    delete:\n      parameters:\n      - in: path\n        name: codes\n        required: true\n        schema:\n          type: string\n      responses:\n        '100':\n          description: Informational responses\n        '200':\n          description: Success\n        '300':\n          description: Redirection\n        '400':\n          description: Client Errors\n        '500':\n          description: Server Errors\n      summary: Return status code or random status code if more than one are given\n      tags:\n      - Status codes\n    get:\n      parameters:\n      - in: path\n        name: codes\n        required: true\n        schema:\n          type: string\n      responses:\n        '100':\n          description: Informational responses\n        '200':\n          description: Success\n        '300':\n          description: Redirection\n        '400':\n          description: Client Errors\n        '500':\n          description: Server Errors\n      summary: Return status code or random status code if more than one are given\n      tags:\n      - Status codes\n    patch:\n      parameters:\n      - in: path\n        name: codes\n        required: true\n        schema:\n          type: string\n      responses:\n        '100':\n          description: Informational responses\n        '200':\n          description: Success\n        '300':\n          description: Redirection\n        '400':\n          description: Client Errors\n        '500':\n          description: Server Errors\n      summary: Return status code or random status code if more than one are given\n      tags:\n      - Status codes\n    post:\n      parameters:\n      - in: path\n        name: codes\n        required: true\n        schema:\n          type: string\n      responses:\n        '100':\n          description: Informational responses\n        '200':\n          description: Success\n        '300':\n          description: Redirection\n        '400':\n          description: Client Errors\n        '500':\n          description: Server Errors\n      summary: Return status code or random status code if more than one are given\n      tags:\n      - Status codes\n    put:\n      parameters:\n      - in: path\n        name: codes\n        required: true\n        schema:\n          type: string\n      responses:\n        '100':\n          description: Informational responses\n        '200':\n          description: Success\n        '300':\n          description: Redirection\n        '400':\n          description: Client Errors\n        '500':\n          description: Server Errors\n      summary: Return status code or random status code if more than one are given\n      tags:\n      - Status codes\n    trace:\n      parameters:\n      - in: path\n        name: codes\n        required: true\n        schema:\n          type: string\n      responses:\n        '100':\n          description: Informational responses\n        '200':\n          description: Success\n        '300':\n          description: Redirection\n        '400':\n          description: Client Errors\n        '500':\n          description: Server Errors\n      summary: Return status code or random status code if more than one are given\n      tags:\n      - Status codes\n  \"/uuid\":\n    get:\n      responses:\n        '200':\n          description: A UUID4.\n      summary: Return a UUID4.\n      tags:\n      - Dynamic data\ntags:\n- description: Testing different HTTP verbs\n  name: HTTP Methods\n- description: Auth methods\n  name: Auth\n- description: Generates responses with given status code\n  name: Status codes\n- description: Inspect the request data\n  name: Request inspection\n- description: Inspect the response data like caching and headers\n  name: Response inspection\n- description: Returns responses in different data formats\n  name: Response formats\n- description: Generates random and dynamic data\n  name: Dynamic data\n- description: Returns different image formats\n  name: Images\n- description: Returns anything that is passed to request\n  name: Anything\n\ncomponents:\n\n    # An Extension for the API Lifecycle\n    # Provides metadata about the lifecycle for this API.\n    x-lifecycle:\n\n        # Navigating Change\n        version:\n            current: 'http://example.com/next'\n\n        # Development\n        # Staging\n        # Production\n        environments: \n\n            # Environment for production\n            - name: Production\n              url: 'https://www.postman.com/environment'  \n              variables:\n                base_url: 'http://example.com/production'       \n                api_key: 'xe3847d3J78393jkdm1123'                \n\n        # Design\n        # Pre-Release    \n        # Active\n        # Recommended\n        # Retired\n        # Deprecated\n        stages: 'Active'\n\n        # Public\n        # Internal\n        # Group\n        # Partner\n        visibility: 'Public'\n\n        # Elements of the API Lifecycle\n        elements:\n\n            # Define\n            define:\n\n                label: Define\n                area: Define\n                elements:              \n\n                    # GitHub Repository\n                    - type: github\n                      title: Github Repository\n                      url: 'https://github.com/postmanlabs/httpbin'\n                      sync: false     \n\n                    # Postman Workspace\n                    - type: workspace\n                      title: Public Workspace\n                      url: 'https://www.postman.com/postman/workspace/httpbin/overview'   \n\n                    # Issues\n                    - type: issues\n                      title: Issues\n                      url: 'https://github.com/postmanlabs/httpbin/issues'     \n\n                    # Use Cases\n                    - type: use-cses\n                      title: Use Cases\n                      url: 'https://docs.google.com/document/d/1gUe2zVa5VPQGVEjpWE_jKjfHA7o9zFf59oBry3fUVsM/edit'     \n\n                    # Team\n                    - type: team\n                      title: Team\n                      url: ''                       ",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{CTRL_HOST}}/api/v1/services/api-definitions/httpbin/versions/1.0.0/import",
+					"protocol": "https",
+					"host": [
+						"{{CTRL_HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"services",
+						"api-definitions",
+						"httpbin",
+						"versions",
+						"1.0.0",
+						"import"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Publish_httpbin_API",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"console.log(\"NOTICE: Publishing HTTPBin API\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const sleep = (seconds) => {",
+							"    console.log(\"sleeping for \"+ seconds +\" seconds...\");",
+							"    return new Promise(resolve => setTimeout(resolve, Number(seconds)*1000));",
+							"}",
+							"",
+							"pm.test(\"Check if HTTPBin API got published\", function(){",
+							"    var status = pm.response.code;",
+							"    const sleep_time = pm.environment.get(\"SLEEP_TIME\");",
+							"",
+							"    if(status == 200 || status == 201 || status == 202){",
+							"        console.log(\"HTTPBin API published successfully.\");",
+							"        sleep(sleep_time);",
+							"        // postman.setNextRequest(\"Create_F1_V1_Component\");",
+							"        return true;",
+							"    }",
+							"    else{",
+							"        postman.setNextRequest(null);",
+							"        pm.expect.fail(\"HTTPBin API publishing failed.\");",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"metadata\": {\n    \"name\": \"httpbin-v1\",\n    \"tags\": []\n  },\n  \"desiredState\": {\n    \"apiDefinitionVersionRef\": {\n      \"ref\": \"/services/api-definitions/httpbin/versions/1.0.0\"\n    },\n    \"gatewayRefs\": [\n      {\n        \"ref\": \"/services/environments/team_a/gateways/teama-gateway\"\n      }\n    ],\n    \"basePath\": \"api/v1\",\n    \"stripWorkloadBasePath\": true\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{CTRL_HOST}}/api/v1/services/environments/team_a/apps/teama-httpbin/published-apis/httpbin-v1",
+					"protocol": "https",
+					"host": [
+						"{{CTRL_HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"services",
+						"environments",
+						"team_a",
+						"apps",
+						"teama-httpbin",
+						"published-apis",
+						"httpbin-v1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create_httpbin_Component",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"console.log(\"NOTICE: Creating HTTPBin Component\");",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Check if HTTPBin component got created\", function(){",
+							"    var status = pm.response.code;",
+							"    if(status == 200 || status == 201 || status == 202){",
+							"        console.log(\"HTTPBin component created successfully.\");",
+							"        // postman.setNextRequest(\"Create_DevPortal\");",
+							"        return true;",
+							"    }",
+							"    else{",
+							"        postman.setNextRequest(null);",
+							"        pm.expect.fail(\"HTTPBin component creation failed.\");",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"metadata\": {\n    \"name\": \"httpbin-backend-v1\",\n    \"tags\": []\n  },\n  \"desiredState\": {\n    \"ingress\": {\n      \"uris\": {\n        \"/anything\": {\n          \"delete\": {\n            \"responses\": {\n              \"200\": {\n                \"description\": \"Anything passed in request\"\n              }\n            },\n            \"summary\": \"Returns anything passed in request data.\",\n            \"tags\": [\n              \"Anything\"\n            ]\n          },\n          \"get\": {\n            \"responses\": {\n              \"200\": {\n                \"description\": \"Anything passed in request\"\n              }\n            },\n            \"summary\": \"Returns anything passed in request data.\",\n            \"tags\": [\n              \"Anything\"\n            ]\n          },\n          \"patch\": {\n            \"responses\": {\n              \"200\": {\n                \"description\": \"Anything passed in request\"\n              }\n            },\n            \"summary\": \"Returns anything passed in request data.\",\n            \"tags\": [\n              \"Anything\"\n            ]\n          },\n          \"post\": {\n            \"responses\": {\n              \"200\": {\n                \"description\": \"Anything passed in request\"\n              }\n            },\n            \"summary\": \"Returns anything passed in request data.\",\n            \"tags\": [\n              \"Anything\"\n            ]\n          },\n          \"put\": {\n            \"responses\": {\n              \"200\": {\n                \"description\": \"Anything passed in request\"\n              }\n            },\n            \"summary\": \"Returns anything passed in request data.\",\n            \"tags\": [\n              \"Anything\"\n            ]\n          },\n          \"trace\": {\n            \"responses\": {\n              \"200\": {\n                \"description\": \"Anything passed in request\"\n              }\n            },\n            \"summary\": \"Returns anything passed in request data.\",\n            \"tags\": [\n              \"Anything\"\n            ]\n          }\n        },\n        \"/base64/{value}\": {\n          \"get\": {\n            \"parameters\": [\n              {\n                \"in\": \"path\",\n                \"name\": \"value\",\n                \"required\": true,\n                \"schema\": {\n                  \"default\": \"SFRUUEJJTiBpcyBhd2Vzb21l\",\n                  \"type\": \"string\"\n                }\n              }\n            ],\n            \"responses\": {\n              \"200\": {\n                \"description\": \"Decoded base64 content.\"\n              }\n            },\n            \"summary\": \"Decodes base64url-encoded string.\",\n            \"tags\": [\n              \"Dynamic data\"\n            ]\n          }\n        },\n        \"/json\": {\n          \"get\": {\n            \"responses\": {\n              \"200\": {\n                \"description\": \"An JSON document.\"\n              }\n            },\n            \"summary\": \"Returns a simple JSON document.\",\n            \"tags\": [\n              \"Response formats\"\n            ]\n          }\n        }\n      },\n      \"gatewayRefs\": [\n        {\n          \"ref\": \"/services/environments/team_a/gateways/teama-gateway\"\n        }\n      ]\n    },\n    \"backend\": {\n      \"ntlmAuthentication\": \"DISABLED\",\n      \"preserveHostHeader\": \"DISABLED\",\n      \"workloadGroups\": {\n        \"httpbin\": {\n          \"loadBalancingMethod\": {\n            \"type\": \"ROUND_ROBIN\"\n          },\n          \"uris\": {\n            \"http://10.1.1.8:3001\": {\n              \"isBackup\": false,\n              \"isDown\": false,\n              \"isDrain\": false\n            },\n            \"http://10.1.1.8:3002\": {\n              \"isBackup\": false,\n              \"isDown\": false,\n              \"isDrain\": false\n            }\n          }\n        }\n      }\n    },\n    \"logging\": {\n      \"errorLog\": \"DISABLED\",\n      \"accessLog\": {\n        \"state\": \"DISABLED\"\n      }\n    },\n    \"security\": {},\n    \"publishedApiRefs\": [\n      {\n        \"ref\": \"/services/environments/team_a/apps/teama-httpbin/published-apis/httpbin-v1\"\n      }\n    ]\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{CTRL_HOST}}/api/v1/services/environments/team_a/apps/teama-httpbin/components/httpbin-backend-v1",
+					"protocol": "https",
+					"host": [
+						"{{CTRL_HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"services",
+						"environments",
+						"team_a",
+						"apps",
+						"teama-httpbin",
+						"components",
+						"httpbin-backend-v1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create_TeamA_Devportal_Gateway",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"console.log(\"NOTICE: Creating devportal gateway\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Check if devportal gateway got created\", function(){",
+							"    if(pm.response.to.have.status(202)){",
+							"        console.log(\"Devportal gateway created successfully.\");",
+							"        // postman.setNextRequest(\"Create_Register_API_definition\");",
+							"        // pm.environment.unset(\"NAME_DP\");",
+							"        return true;",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"metadata\": {\n    \"name\": \"teama-devportal\",\n    \"displayName\": \"Team A APIs Dev Portal\",\n    \"tags\": []\n  },\n  \"desiredState\": {\n    \"ingress\": {\n      \"uris\": {\n        \"http://teamaportal.example.com\": {}\n      },\n      \"placement\": {\n        \"instanceRefs\": [\n          {\n            \"ref\": \"/infrastructure/locations/unspecified/instances/{{NAME_DP}}\"\n          }\n        ]\n      }\n    }\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{CTRL_HOST}}/api/v1/services/environments/team_a/gateways",
+					"protocol": "https",
+					"host": [
+						"{{CTRL_HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"services",
+						"environments",
+						"team_a",
+						"gateways"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create_DevPortal",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"console.log(\"NOTICE: Creating developer portal object\")"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Check if DevPortal got created\", function(){",
+							"    var status = pm.response.code;",
+							"    if(status == 200 || status == 201 || status == 202){",
+							"        console.log(\"DevPortal created successfully.\");",
+							"        postman.setNextRequest(null);",
+							"        return true;",
+							"    }",
+							"    else{",
+							"        postman.setNextRequest(null);",
+							"        pm.expect.fail(\"DevPortal creation failed.\");",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"metadata\": {\n    \"name\": \"teamaportal\",\n    \"displayName\": \"Team A API Dev Portal\",\n    \"tags\": [],\n    \"kind\": \"devportal\"\n  },\n  \"desiredState\": {\n    \"ingress\": {\n      \"gatewayRefs\": [\n        {\n          \"ref\": \"/services/environments/team_a/gateways/teama-devportal\"\n        }\n      ]\n    },\n    \"devPortalTheme\": {\n      \"customConfig\": {\n        \"fonts\": {\n          \"assignments\": {\n            \"headings\": {\n              \"kind\": \"google-web-font\",\n              \"value\": \"Lato\"\n            },\n            \"body\": {\n              \"kind\": \"google-web-font\",\n              \"value\": \"Fira+Sans\"\n            },\n            \"code\": {\n              \"kind\": \"google-web-font\",\n              \"value\": \"IBM+Plex+Mono\"\n            },\n            \"cta\": {\n              \"kind\": \"google-web-font\",\n              \"value\": \"Lato\"\n            },\n            \"special\": {\n              \"kind\": \"google-web-font\",\n              \"value\": \"Lato\"\n            }\n          }\n        },\n        \"primary\": {\n          \"color\": {\n            \"primary\": \"#3b43be\",\n            \"accent\": \"#3b43be\",\n            \"fill\": \"#ffffff\",\n            \"ink\": \"#171d21\"\n          }\n        },\n        \"secondary\": {\n          \"color\": {\n            \"primary\": \"#3b43be\",\n            \"accent\": \"#ffffff\",\n            \"fill\": \"#f7f8fa\",\n            \"ink\": \"#2c3039\",\n            \"gray\": \"#272938\"\n          }\n        }\n      },\n      \"brandName\": \"Team A Developer Portal\",\n      \"logo\": \"data:image/png;base64,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\"\n    },\n    \"publishedApiRefs\": [\n      {\n        \"ref\": \"/services/environments/team_a/apps/teama-httpbin/published-apis/httpbin-v1\"\n      }\n    ],\n    \"devPortalType\": \"private\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{CTRL_HOST}}/api/v1/services/environments/team_a/devportals",
+					"protocol": "https",
+					"host": [
+						"{{CTRL_HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"services",
+						"environments",
+						"team_a",
+						"devportals"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

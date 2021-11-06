@@ -1,0 +1,495 @@
+openapi: 3.0.3
+info:
+  title: Team A httpbin API
+  description: 'A simple HTTP Request & Response Service.'
+  license:
+    name: ISC
+    url: https://spdx.org/licenses/ISC.html    
+  version: 1.0.0
+paths:
+  "/anything":
+    delete:
+      responses:
+        '200':
+          description: Anything passed in request
+      summary: Returns anything passed in request data.
+      tags:
+      - Anything
+    get:
+      responses:
+        '200':
+          description: Anything passed in request
+      summary: Returns anything passed in request data.
+      tags:
+      - Anything
+    patch:
+      responses:
+        '200':
+          description: Anything passed in request
+      summary: Returns anything passed in request data.
+      tags:
+      - Anything
+    post:
+      responses:
+        '200':
+          description: Anything passed in request
+      summary: Returns anything passed in request data.
+      tags:
+      - Anything
+    put:
+      responses:
+        '200':
+          description: Anything passed in request
+      summary: Returns anything passed in request data.
+      tags:
+      - Anything
+    trace:
+      responses:
+        '200':
+          description: Anything passed in request
+      summary: Returns anything passed in request data.
+      tags:
+      - Anything
+  "/anything/{anything}":
+    delete:
+      parameters:
+      - in: path
+        name: anything
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Anything passed in request
+      summary: Returns anything passed in request data.
+      tags:
+      - Anything
+    get:
+      parameters:
+      - in: path
+        name: anything
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Anything passed in request
+      summary: Returns anything passed in request data.
+      tags:
+      - Anything
+    patch:
+      parameters:
+      - in: path
+        name: anything
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Anything passed in request
+      summary: Returns anything passed in request data.
+      tags:
+      - Anything
+    post:
+      parameters:
+      - in: path
+        name: anything
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Anything passed in request
+      summary: Returns anything passed in request data.
+      tags:
+      - Anything
+    put:
+      parameters:
+      - in: path
+        name: anything
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Anything passed in request
+      summary: Returns anything passed in request data.
+      tags:
+      - Anything
+    trace:
+      parameters:
+      - in: path
+        name: anything
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Anything passed in request
+      summary: Returns anything passed in request data.
+      tags:
+      - Anything
+  "/base64/{value}":
+    get:
+      parameters:
+      - in: path
+        name: value
+        required: true
+        schema:
+          default: SFRUUEJJTiBpcyBhd2Vzb21l
+          type: string
+      responses:
+        '200':
+          description: Decoded base64 content.
+      summary: Decodes base64url-encoded string.
+      tags:
+      - Dynamic data
+  "/bearer":
+    get:
+      parameters:
+      - in: header
+        name: Authorization
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Sucessful authentication.
+        '401':
+          description: Unsuccessful authentication.
+      summary: Prompts the user for authorization using bearer authentication.
+      tags:
+      - Auth
+  "/encoding/utf8":
+    get:
+      responses:
+        '200':
+          description: Encoded UTF-8 content.
+      summary: Returns a UTF-8 encoded body.
+      tags:
+      - Response formats
+  "/get":
+    get:
+      responses:
+        '200':
+          description: The request's query parameters.
+      summary: The request's query parameters.
+      tags:
+      - HTTP Methods
+  "/headers":
+    get:
+      responses:
+        '200':
+          description: The request's headers.
+      summary: Return the incoming request's HTTP headers.
+      tags:
+      - Request inspection
+  "/html":
+    get:
+      responses:
+        '200':
+          description: An HTML page.
+      summary: Returns a simple HTML document.
+      tags:
+      - Response formats
+  "/image":
+    get:
+      responses:
+        '200':
+          description: An image.
+      summary: Returns a simple image of the type suggest by the Accept header.
+      tags:
+      - Images
+  "/ip":
+    get:
+      responses:
+        '200':
+          description: The Requester's IP Address.
+      summary: Returns the requester's IP Address.
+      tags:
+      - Request inspection
+  "/json":
+    get:
+      responses:
+        '200':
+          description: An JSON document.
+      summary: Returns a simple JSON document.
+      tags:
+      - Response formats
+  "/post":
+    post:
+      responses:
+        '200':
+          description: The request's POST parameters.
+      summary: The request's POST parameters.
+      tags:
+      - HTTP Methods
+  "/put":
+    put:
+      responses:
+        '200':
+          description: The request's PUT parameters.
+      summary: The request's PUT parameters.
+      tags:
+      - HTTP Methods
+  "/response-headers":
+    get:
+      parameters:
+      - allowEmptyValue: true
+        explode: true
+        in: query
+        name: freeform
+        schema:
+          additionalProperties:
+            type: string
+          type: object
+        style: form
+      responses:
+        '200':
+          description: Response headers
+      summary: Returns a set of response headers from the query string.
+      tags:
+      - Response inspection
+    post:
+      parameters:
+      - allowEmptyValue: true
+        explode: true
+        in: query
+        name: freeform
+        schema:
+          additionalProperties:
+            type: string
+          type: object
+        style: form
+      responses:
+        '200':
+          description: Response headers
+      summary: Returns a set of response headers from the query string.
+      tags:
+      - Response inspection
+  "/status/{codes}":
+    delete:
+      parameters:
+      - in: path
+        name: codes
+        required: true
+        schema:
+          type: string
+      responses:
+        '100':
+          description: Informational responses
+        '200':
+          description: Success
+        '300':
+          description: Redirection
+        '400':
+          description: Client Errors
+        '500':
+          description: Server Errors
+      summary: Return status code or random status code if more than one are given
+      tags:
+      - Status codes
+    get:
+      parameters:
+      - in: path
+        name: codes
+        required: true
+        schema:
+          type: string
+      responses:
+        '100':
+          description: Informational responses
+        '200':
+          description: Success
+        '300':
+          description: Redirection
+        '400':
+          description: Client Errors
+        '500':
+          description: Server Errors
+      summary: Return status code or random status code if more than one are given
+      tags:
+      - Status codes
+    patch:
+      parameters:
+      - in: path
+        name: codes
+        required: true
+        schema:
+          type: string
+      responses:
+        '100':
+          description: Informational responses
+        '200':
+          description: Success
+        '300':
+          description: Redirection
+        '400':
+          description: Client Errors
+        '500':
+          description: Server Errors
+      summary: Return status code or random status code if more than one are given
+      tags:
+      - Status codes
+    post:
+      parameters:
+      - in: path
+        name: codes
+        required: true
+        schema:
+          type: string
+      responses:
+        '100':
+          description: Informational responses
+        '200':
+          description: Success
+        '300':
+          description: Redirection
+        '400':
+          description: Client Errors
+        '500':
+          description: Server Errors
+      summary: Return status code or random status code if more than one are given
+      tags:
+      - Status codes
+    put:
+      parameters:
+      - in: path
+        name: codes
+        required: true
+        schema:
+          type: string
+      responses:
+        '100':
+          description: Informational responses
+        '200':
+          description: Success
+        '300':
+          description: Redirection
+        '400':
+          description: Client Errors
+        '500':
+          description: Server Errors
+      summary: Return status code or random status code if more than one are given
+      tags:
+      - Status codes
+    trace:
+      parameters:
+      - in: path
+        name: codes
+        required: true
+        schema:
+          type: string
+      responses:
+        '100':
+          description: Informational responses
+        '200':
+          description: Success
+        '300':
+          description: Redirection
+        '400':
+          description: Client Errors
+        '500':
+          description: Server Errors
+      summary: Return status code or random status code if more than one are given
+      tags:
+      - Status codes
+  "/uuid":
+    get:
+      responses:
+        '200':
+          description: A UUID4.
+      summary: Return a UUID4.
+      tags:
+      - Dynamic data
+tags:
+- description: Testing different HTTP verbs
+  name: HTTP Methods
+- description: Auth methods
+  name: Auth
+- description: Generates responses with given status code
+  name: Status codes
+- description: Inspect the request data
+  name: Request inspection
+- description: Inspect the response data like caching and headers
+  name: Response inspection
+- description: Returns responses in different data formats
+  name: Response formats
+- description: Generates random and dynamic data
+  name: Dynamic data
+- description: Returns different image formats
+  name: Images
+- description: Returns anything that is passed to request
+  name: Anything
+
+components:
+
+    # An Extension for the API Lifecycle
+    # Provides metadata about the lifecycle for this API.
+    x-lifecycle:
+
+        # Navigating Change
+        version:
+            current: 'http://example.com/next'
+
+        # Development
+        # Staging
+        # Production
+        environments: 
+
+            # Environment for production
+            - name: Production
+              url: 'https://www.postman.com/environment'  
+              variables:
+                base_url: 'http://example.com/production'       
+                api_key: 'xe3847d3J78393jkdm1123'                
+
+        # Design
+        # Pre-Release    
+        # Active
+        # Recommended
+        # Retired
+        # Deprecated
+        stages: 'Active'
+
+        # Public
+        # Internal
+        # Group
+        # Partner
+        visibility: 'Public'
+
+        # Elements of the API Lifecycle
+        elements:
+
+            # Define
+            define:
+
+                label: Define
+                area: Define
+                elements:              
+
+                    # GitHub Repository
+                    - type: github
+                      title: Github Repository
+                      url: 'https://github.com/postmanlabs/httpbin'
+                      sync: false     
+
+                    # Postman Workspace
+                    - type: workspace
+                      title: Public Workspace
+                      url: 'https://www.postman.com/postman/workspace/httpbin/overview'   
+
+                    # Issues
+                    - type: issues
+                      title: Issues
+                      url: 'https://github.com/postmanlabs/httpbin/issues'     
+
+                    # Use Cases
+                    - type: use-cses
+                      title: Use Cases
+                      url: 'https://docs.google.com/document/d/1gUe2zVa5VPQGVEjpWE_jKjfHA7o9zFf59oBry3fUVsM/edit'     
+
+                    # Team
+                    - type: team
+                      title: Team
+                      url: ''                       
+
