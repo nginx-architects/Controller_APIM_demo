@@ -33,7 +33,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"credentials\": {\n        \"type\": \"BASIC\",\n        \"username\": \"teama_admin@example.com\",\n        \"password\": \"{{PASSWORD}}\"\n    }\n}",
+					"raw": "{\n    \"credentials\": {\n        \"type\": \"BASIC\",\n        \"username\": \"{{USERNAME}}\",\n        \"password\": \"{{PASSWORD}}\"\n    }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
