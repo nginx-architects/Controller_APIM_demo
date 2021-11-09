@@ -1,0 +1,482 @@
+{
+	"info": {
+		"_postman_id": "9f2a4000-09bc-4c80-941b-78a43d145323",
+		"name": "3_Controller3.x_Create_Users_and_roles",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Login status\", function(){",
+							"    var status = pm.response.code;",
+							"    if(status == 204){",
+							"        console.log(\"Login was successful. Moving on to deletion steps.\");",
+							"        // postman.setNextRequest(\"Get_Env_List\");",
+							"        return true;",
+							"    }",
+							"    else {",
+							"        console.error(\"Login was not successful. Exiting!!!\");",
+							"        postman.setNextRequest(null);",
+							"        pm.expect.fail(\"Login was not successful. Exiting!!!\");",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"credentials\": {\n        \"type\": \"BASIC\",\n        \"username\": \"{{USERNAME}}\",\n        \"password\": \"{{PASSWORD}}\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{CTRL_HOST}}/api/v1/platform/login",
+					"protocol": "https",
+					"host": [
+						"{{CTRL_HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"platform",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create_Role_TeamA_Admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Role creation status\", function(){",
+							"    var status = pm.response.code;",
+							"    if(status == 200|| status == 201){",
+							"        console.log(\"Role creation succeeded.\");",
+							"        return true;",
+							"    }",
+							"    else {",
+							"        console.error(\"Role creation failed. Exiting!!!\");",
+							"        postman.setNextRequest(null);",
+							"        pm.expect.fail(\"Role creation failed. Exiting!!!\");",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"metadata\": {\n    \"name\": \"admin_teama\",\n    \"displayName\": \"Team A Admins\",\n    \"description\": \"\"\n  },\n  \"desiredState\": {\n    \"permissions\": [\n      {\n        \"path\": \"/api/v1/services/environments/oneconnect\",\n        \"access\": \"NONE\"\n      },\n      {\n        \"path\": \"/api/v1/services/environments/team_a\",\n        \"access\": \"FULL\"\n      },\n      {\n        \"path\": \"/api/v1/services/environments/team_b\",\n        \"access\": \"NONE\"\n      }\n    ]\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{CTRL_HOST}}/api/v1/platform/roles/admin_teama",
+					"protocol": "https",
+					"host": [
+						"{{CTRL_HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"platform",
+						"roles",
+						"admin_teama"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create_Role_TeamB_Admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Role creation status\", function(){",
+							"    var status = pm.response.code;",
+							"    if(status == 200|| status == 201){",
+							"        console.log(\"Role creation succeeded.\");",
+							"        return true;",
+							"    }",
+							"    else {",
+							"        console.error(\"Role creation failed. Exiting!!!\");",
+							"        postman.setNextRequest(null);",
+							"        pm.expect.fail(\"Role creation failed. Exiting!!!\");",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"metadata\": {\n    \"name\": \"admin_teamb\",\n    \"displayName\": \"Team B Admins\",\n    \"description\": \"\"\n  },\n  \"desiredState\": {\n    \"permissions\": [\n      {\n        \"path\": \"/api/v1/services/environments/oneconnect\",\n        \"access\": \"NONE\"\n      },\n      {\n        \"path\": \"/api/v1/services/environments/team_a\",\n        \"access\": \"NONE\"\n      },\n      {\n        \"path\": \"/api/v1/services/environments/team_b\",\n        \"access\": \"FULL\"\n      }\n    ]\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{CTRL_HOST}}/api/v1/platform/roles/admin_teamb",
+					"protocol": "https",
+					"host": [
+						"{{CTRL_HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"platform",
+						"roles",
+						"admin_teamb"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create_Role_TeamA_Users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Role creation status\", function(){",
+							"    var status = pm.response.code;",
+							"    if(status == 200|| status == 201){",
+							"        console.log(\"Role creation succeeded.\");",
+							"        return true;",
+							"    }",
+							"    else {",
+							"        console.error(\"Role creation failed. Exiting!!!\");",
+							"        postman.setNextRequest(null);",
+							"        pm.expect.fail(\"Role creation failed. Exiting!!!\");",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"metadata\": {\n    \"name\": \"users_teama\",\n    \"displayName\": \"Team A Users\",\n    \"description\": \"\"\n  },\n  \"desiredState\": {\n    \"permissions\": [\n      {\n        \"path\": \"/api/v1/services/environments/oneconnect\",\n        \"access\": \"NONE\"\n      },\n      {\n        \"path\": \"/api/v1/services/environments/team_a\",\n        \"access\": \"READ\"\n      },\n      {\n        \"path\": \"/api/v1/services/environments/team_b\",\n        \"access\": \"NONE\"\n      }\n    ]\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{CTRL_HOST}}/api/v1/platform/roles/users_teama",
+					"protocol": "https",
+					"host": [
+						"{{CTRL_HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"platform",
+						"roles",
+						"users_teama"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create_Role_TeamB_Users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Role creation status\", function(){",
+							"    var status = pm.response.code;",
+							"    if(status == 200|| status == 201){",
+							"        console.log(\"Role creation succeeded.\");",
+							"        return true;",
+							"    }",
+							"    else {",
+							"        console.error(\"Role creation failed. Exiting!!!\");",
+							"        postman.setNextRequest(null);",
+							"        pm.expect.fail(\"Role creation failed. Exiting!!!\");",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"metadata\": {\n    \"name\": \"users_teamb\",\n    \"displayName\": \"Team B Users\",\n    \"description\": \"\"\n  },\n  \"desiredState\": {\n    \"permissions\": [\n      {\n        \"path\": \"/api/v1/services/environments/oneconnect\",\n        \"access\": \"NONE\"\n      },\n      {\n        \"path\": \"/api/v1/services/environments/team_a\",\n        \"access\": \"NONE\"\n      },\n      {\n        \"path\": \"/api/v1/services/environments/team_b\",\n        \"access\": \"READ\"\n      }\n    ]\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{CTRL_HOST}}/api/v1/platform/roles/users_teamb",
+					"protocol": "https",
+					"host": [
+						"{{CTRL_HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"platform",
+						"roles",
+						"users_teamb"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create_User_TeamA_Admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"User creation status\", function(){",
+							"    var status = pm.response.code;",
+							"    if(status == 200|| status == 201){",
+							"        console.log(\"User creation succeeded.\");",
+							"        return true;",
+							"    }",
+							"    else {",
+							"        console.error(\"User creation failed. Exiting!!!\");",
+							"        postman.setNextRequest(null);",
+							"        pm.expect.fail(\"User creation failed. Exiting!!!\");",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"desiredState\": {\n    \"firstName\": \"admin\",\n    \"lastName\": \"teama\",\n    \"email\": \"admina@example.com\",\n    \"password\": \"{{PASSWORD}}\",\n    \"roles\": [\n      {\n        \"ref\": \"/platform/roles/user\",\n        \"links\": {\n          \"name\": \"user\",\n          \"rel\": \"/api/v1/platform/roles/user\"\n        }\n      },\n      {\n        \"ref\": \"/platform/roles/admin_teama\",\n        \"links\": {\n          \"name\": \"admin_teama\",\n          \"rel\": \"/api/v1/platform/roles/admin_teama\"\n        }\n      }\n    ]\n  },\n  \"metadata\": {\n    \"name\": \"admina@example.com\",\n    \"tags\": [],\n    \"displayName\": \"Team A admin\",\n    \"description\": \"\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{CTRL_HOST}}/api/v1/platform/users",
+					"protocol": "https",
+					"host": [
+						"{{CTRL_HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"platform",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create_User_TeamB_Admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"User creation status\", function(){",
+							"    var status = pm.response.code;",
+							"    if(status == 200|| status == 201){",
+							"        console.log(\"User creation succeeded.\");",
+							"        return true;",
+							"    }",
+							"    else {",
+							"        console.error(\"User creation failed. Exiting!!!\");",
+							"        postman.setNextRequest(null);",
+							"        pm.expect.fail(\"User creation failed. Exiting!!!\");",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"desiredState\": {\n    \"firstName\": \"admin\",\n    \"lastName\": \"teamb\",\n    \"email\": \"adminb@example.com\",\n    \"password\": \"{{PASSWORD}}\",\n    \"roles\": [\n      {\n        \"ref\": \"/platform/roles/user\",\n        \"links\": {\n          \"name\": \"user\",\n          \"rel\": \"/api/v1/platform/roles/user\"\n        }\n      },\n      {\n        \"ref\": \"/platform/roles/admin_teamb\",\n        \"links\": {\n          \"name\": \"admin_teamb\",\n          \"rel\": \"/api/v1/platform/roles/admin_teamb\"\n        }\n      }\n    ]\n  },\n  \"metadata\": {\n    \"name\": \"adminb@example.com\",\n    \"tags\": [],\n    \"displayName\": \"Team B admin\",\n    \"description\": \"\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{CTRL_HOST}}/api/v1/platform/users",
+					"protocol": "https",
+					"host": [
+						"{{CTRL_HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"platform",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create_User_TeamA_User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"User creation status\", function(){",
+							"    var status = pm.response.code;",
+							"    if(status == 200|| status == 201){",
+							"        console.log(\"User creation succeeded.\");",
+							"        return true;",
+							"    }",
+							"    else {",
+							"        console.error(\"User creation failed. Exiting!!!\");",
+							"        postman.setNextRequest(null);",
+							"        pm.expect.fail(\"User creation failed. Exiting!!!\");",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"desiredState\": {\n    \"firstName\": \"user\",\n    \"lastName\": \"teama\",\n    \"email\": \"usera@example.com\",\n    \"password\": \"{{PASSWORD}}\",\n    \"roles\": [\n      {\n        \"ref\": \"/platform/roles/users_teama\",\n        \"links\": {\n          \"name\": \"users_teama\",\n          \"rel\": \"/api/v1/platform/roles/users_teama\"\n        }\n      }\n    ]\n  },\n  \"metadata\": {\n    \"name\": \"usera@example.com\",\n    \"tags\": [],\n    \"displayName\": \"User A\",\n    \"description\": \"\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{CTRL_HOST}}/api/v1/platform/users",
+					"protocol": "https",
+					"host": [
+						"{{CTRL_HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"platform",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create_User_TeamB_User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"User creation status\", function(){",
+							"    var status = pm.response.code;",
+							"    if(status == 200|| status == 201){",
+							"        console.log(\"User creation succeeded.\");",
+							"        return true;",
+							"    }",
+							"    else {",
+							"        console.error(\"User creation failed. Exiting!!!\");",
+							"        postman.setNextRequest(null);",
+							"        pm.expect.fail(\"User creation failed. Exiting!!!\");",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"desiredState\": {\n    \"firstName\": \"user\",\n    \"lastName\": \"teamb\",\n    \"email\": \"userb@example.com\",\n    \"password\": \"{{PASSWORD}}\",\n    \"roles\": [\n      {\n        \"ref\": \"/platform/roles/users_teamb\",\n        \"links\": {\n          \"name\": \"users_teamb\",\n          \"rel\": \"/api/v1/platform/roles/users_teamb\"\n        }\n      }\n    ]\n  },\n  \"metadata\": {\n    \"name\": \"userb@example.com\",\n    \"tags\": [],\n    \"displayName\": \"User B\",\n    \"description\": \"\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{CTRL_HOST}}/api/v1/platform/users",
+					"protocol": "https",
+					"host": [
+						"{{CTRL_HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"platform",
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

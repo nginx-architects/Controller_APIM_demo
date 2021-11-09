@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "a6312fa2-5ec5-4fc6-ac08-1f01e51c1a5f",
-		"name": "1_Controller3.x_demo_cleanup",
+		"_postman_id": "e54d3c2a-7f37-4eb8-8732-38671831d4dc",
+		"name": "1_Controller3.x_demo_cleanup_MDA",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -976,7 +976,7 @@
 							"        else{",
 							"            //Skip deletion if there are no API Definitions present.",
 							"            console.log(\"No API Definitions present to delete.\");",
-							"            postman.setNextRequest(null);",
+							"            postman.setNextRequest(\"Get_User_List\");",
 							"        }  ",
 							"        return true;",
 							"    }",
@@ -1030,12 +1030,12 @@
 							"            pm.environment.set(\"TEMP_ITR\", 0);",
 							"            pm.environment.unset(\"TEMP_VARIABLE\");",
 							"            pm.environment.unset(\"TEMP_LIST\");",
-							"            postman.setNextRequest(null);",
+							"            postman.setNextRequest(\"Get_User_List\");",
 							"        }",
 							"        return true;",
 							"    }",
 							"    else{",
-							"        postman.setNextRequest(null);",
+							"        postman.setNextRequest(\"Get_User_List\");",
 							"        return false;",
 							"    }",
 							"});"
@@ -1071,6 +1071,286 @@
 						"v1",
 						"services",
 						"api-definitions",
+						"{{TEMP_VARIABLE}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get_User_List",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Check if any users are present\", function(){",
+							"    var status = pm.response.code;",
+							"    if(status == 200){",
+							"        const responseJson = pm.response.json();",
+							"        var users = new Array();",
+							"        //Get all the API Definitions and store in a variable",
+							"        if(responseJson.items.length > 1){",
+							"",
+							"            for(i=0; i< responseJson.items.length; i++){",
+							"                if(responseJson.items[i].metadata.name !== \"admin@nginxcontrollerdemo.com\"){",
+							"                    users.push(responseJson.items[i].metadata.name);",
+							"                }",
+							"            }",
+							"",
+							"            console.log(\"Users marked for deletion: [\" + users +\"]\");",
+							"            pm.environment.set(\"TEMP_LIST\", users.toString());",
+							"",
+							"            //Move to Delete_API_Definition call",
+							"            // postman.setNextRequest(\"Delete_API_Definition\");",
+							"        } ",
+							"        else{",
+							"            //Skip deletion if there are no API Definitions present.",
+							"            console.log(\"No users present to delete.\");",
+							"            postman.setNextRequest(\"Get_CustomRole_List\");",
+							"        }  ",
+							"        return true;",
+							"    }",
+							"    else{",
+							"        console.error(\"Get Users call failed. Exiting!!!\");",
+							"        postman.setNextRequest(null);",
+							"        pm.expect.fail(\"Get Users call failed. Exiting!!!\");",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{CTRL_HOST}}/api/v1/platform/users",
+					"protocol": "https",
+					"host": [
+						"{{CTRL_HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"platform",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete_Users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Check if user deletion was successful\", function(){",
+							"    var status = pm.response.code;",
+							"    if(status == 204){",
+							"        let itr = pm.environment.get(\"TEMP_ITR\");",
+							"        const users = pm.environment.get(\"TEMP_LIST\").split(\",\");",
+							"        if(Number(itr) < users.length - 1){",
+							"            pm.environment.set(\"TEMP_ITR\", Number(itr) + 1);",
+							"            postman.setNextRequest(\"Delete_Users\");    ",
+							"        }",
+							"        else{",
+							"            pm.environment.set(\"TEMP_ITR\", 0);",
+							"            pm.environment.unset(\"TEMP_VARIABLE\");",
+							"            pm.environment.unset(\"TEMP_LIST\");",
+							"            postman.setNextRequest(\"Get_CustomRole_List\");",
+							"        }",
+							"        return true;",
+							"    }",
+							"    else{",
+							"        postman.setNextRequest(\"Get_CustomRole_List\");",
+							"        return false;",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const users = pm.environment.get(\"TEMP_LIST\").split(\",\");",
+							"let itr = pm.environment.get(\"TEMP_ITR\");",
+							"pm.environment.set(\"TEMP_VARIABLE\", users[itr]);",
+							"console.log(\"NOTICE: Deleting User: \" + users[itr]);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://{{CTRL_HOST}}/api/v1/platform/users/{{TEMP_VARIABLE}}",
+					"protocol": "https",
+					"host": [
+						"{{CTRL_HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"platform",
+						"users",
+						"{{TEMP_VARIABLE}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get_CustomRole_List",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Check if any Roles are present\", function(){",
+							"    var status = pm.response.code;",
+							"    if(status == 200){",
+							"        const responseJson = pm.response.json();",
+							"        var roles = new Array();",
+							"        //Get all the Custom Roles and store in a variable",
+							"        if(responseJson.items.length > 0){",
+							"",
+							"            for(i=0; i< responseJson.items.length; i++){",
+							"                if(responseJson.items[i].metadata.hasOwnProperty(\"displayName\")){",
+							"                    roles.push(responseJson.items[i].metadata.name);",
+							"                }",
+							"            }",
+							"",
+							"            console.log(\"Roles marked for deletion: [\" + roles +\"]\");",
+							"            pm.environment.set(\"TEMP_LIST\", roles.toString());",
+							"",
+							"            //Move to Delete_Roles call",
+							"            postman.setNextRequest(\"Delete_Roles\");",
+							"        } ",
+							"        else{",
+							"            //Skip deletion if there are no roles present.",
+							"            console.log(\"No Roles present to delete.\");",
+							"            postman.setNextRequest(null);",
+							"        }  ",
+							"        return true;",
+							"    }",
+							"    else{",
+							"        console.error(\"Get Roles call failed. Exiting!!!\");",
+							"        postman.setNextRequest(null);",
+							"        pm.expect.fail(\"Get Roles call failed. Exiting!!!\");",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{CTRL_HOST}}/api/v1/platform/roles",
+					"protocol": "https",
+					"host": [
+						"{{CTRL_HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"platform",
+						"roles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete_Roles",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Check if Role deletion was successful\", function(){",
+							"    var status = pm.response.code;",
+							"    if(status == 204){",
+							"        let itr = pm.environment.get(\"TEMP_ITR\");",
+							"        const roles = pm.environment.get(\"TEMP_LIST\").split(\",\");",
+							"        if(Number(itr) < roles.length - 1){",
+							"            pm.environment.set(\"TEMP_ITR\", Number(itr) + 1);",
+							"            postman.setNextRequest(\"Delete_Roles\");    ",
+							"        }",
+							"        else{",
+							"            pm.environment.set(\"TEMP_ITR\", 0);",
+							"            pm.environment.unset(\"TEMP_VARIABLE\");",
+							"            pm.environment.unset(\"TEMP_LIST\");",
+							"            postman.setNextRequest(null);",
+							"        }",
+							"        return true;",
+							"    }",
+							"    else{",
+							"        postman.setNextRequest(null);",
+							"        return false;",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const roles = pm.environment.get(\"TEMP_LIST\").split(\",\");",
+							"let itr = pm.environment.get(\"TEMP_ITR\");",
+							"pm.environment.set(\"TEMP_VARIABLE\", roles[itr]);",
+							"console.log(\"NOTICE: Deleting Role: \" + roles[itr]);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://{{CTRL_HOST}}/api/v1/platform/roles/{{TEMP_VARIABLE}}",
+					"protocol": "https",
+					"host": [
+						"{{CTRL_HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"platform",
+						"roles",
 						"{{TEMP_VARIABLE}}"
 					]
 				}

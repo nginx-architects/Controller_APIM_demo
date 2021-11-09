@@ -26,7 +26,20 @@ pipeline {
                 '''
             }
         }
-    } 
+    }
+
+    stages {
+        stage('Create Additional Roles and Users') {
+            steps {
+                sh '''
+                set +x
+                ./Scripts/CreateUsers_Roles.sh $controllerUrl $username $password
+                set -x
+                '''
+            }
+        }
+    }
+
     post {
         always{
             slackSend channel: "${slack_channel}",
