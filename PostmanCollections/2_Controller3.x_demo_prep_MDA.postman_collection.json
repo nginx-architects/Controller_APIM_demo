@@ -536,7 +536,6 @@
 							"    if(pm.response.to.have.status(202)){",
 							"        console.log(\"Devportal gateway created successfully.\");",
 							"        postman.setNextRequest(\"Create_Register_API_definition\");",
-							"        // pm.environment.unset(\"NAME_DP\");",
 							"        return true;",
 							"    }",
 							"});"
@@ -1702,10 +1701,18 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+							"const sleep = (seconds) => {",
+							"    console.log(\"sleeping for \"+ seconds +\" seconds...\");",
+							"    return new Promise(resolve => setTimeout(resolve, Number(seconds)*1000));",
+							"}",
+							"",
 							"pm.test(\"Check if F1-results V2 API got published\", function(){",
-							"    var status = pm.response.code",
+							"    var status = pm.response.code;",
+							"    const sleep_time = pm.environment.get(\"SLEEP_TIME\");",
+							"",
 							"    if(status == 200 || status == 201 || status == 202){",
 							"        console.log(\"F1-results V2 API published successfully.\");",
+							"        sleep(sleep_time);",
 							"        postman.setNextRequest(\"Create_F1_V2_Component\");",
 							"        return true;",
 							"    }",
