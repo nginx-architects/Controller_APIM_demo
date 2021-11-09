@@ -7,7 +7,7 @@ pipeline {
 
     parameters {
         string(defaultValue: "10.1.1.4", description: 'Controller (UDF URL / IP Address)', name: 'controllerUrl')
-        string(defaultValue: "teama_admin@example.com", description: 'Controller Username', name: 'username')
+        string(defaultValue: "admina@example.com", description: 'Controller Username', name: 'username')
         password(defaultValue: "Admin123!@#", description: 'Controller Password', name: 'password')
         string(defaultValue: "#nginx_demo_slack_integ", description: 'Notification channel name. (For notifying a user instead of channel, use @Member_ID)', name: 'slack_channel')
     }
