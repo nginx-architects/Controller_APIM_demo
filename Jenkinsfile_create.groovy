@@ -26,9 +26,6 @@ pipeline {
                 '''
             }
         }
-    }
-
-    stages {
         stage('Create Additional Roles and Users') {
             steps {
                 sh '''
